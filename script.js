@@ -1,12 +1,14 @@
-const computerSelection = getComputerChoice();
-console.log(computerSelection);
+// const computerSelection = getComputerChoice();
+// console.log(computerSelection);
 
-let playerSelection = prompt('Rock Paper Scissors! Enter your choice:');
-playerSelection = capitalize(playerSelection)
-console.log(playerSelection);
+// let playerSelection = prompt('Rock Paper Scissors! Enter your choice:');
+// playerSelection = capitalize(playerSelection)
+// console.log(playerSelection);
 
-playRound(playerSelection, computerSelection);
-console.log(playRound(playerSelection, computerSelection));
+// playRound(playerSelection, computerSelection);
+// console.log(playRound(playerSelection, computerSelection));
+
+game();
 
 function capitalize(playerSelection) {
     playerSelection = playerSelection.toLowerCase();
@@ -28,7 +30,7 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         return;
-    } 
+    }
     // There are only three win conditions, so just check for those.
     else if ((playerSelection === 'Paper') && (computerSelection === 'Rock')) {
         return true;
@@ -45,6 +47,35 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
+    let playerWins = 0;
+    let computerWins = 0;
+
+    for (let i = 0; i < 5; i++) {
+        const computerSelection = getComputerChoice();
+        console.log(computerSelection);
+
+        let playerSelection = prompt('Rock Paper Scissors! Enter your choice:');
+        playerSelection = capitalize(playerSelection);
+        console.log(playerSelection);
+
+        const checkRoundWin = playRound(playerSelection, computerSelection);
+
+        if (checkRoundWin === true) {
+            playerWins++;
+            console.log(`You win round ${i + 1}! ${playerSelection} beats ${computerSelection}!`);
+        }
+        else if (checkRoundWin === false) {
+            computerWins++;
+            console.log(`You lose round ${i + 1}! ${computerSelection} beats ${playerSelection}!`);
+        }
+        else {
+            console.log(`It's a tie this round (${i + 1})! You both chose ${playerSelection}.`);
+        }
+    }
+    console.log('playerwins ' + playerWins);
+    console.log('computerwins ' + computerWins);
+
+    
     /*
     let playerWins = 0;
     let computerWins = 0;
