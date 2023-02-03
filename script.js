@@ -27,19 +27,47 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        return `You both chose ${playerSelection}, so no one wins.`;
+        return;
     } 
-    // There are only three win conditions, so we only need to check for those.
+    // There are only three win conditions, so just check for those.
     else if ((playerSelection === 'Paper') && (computerSelection === 'Rock')) {
-        return `You win! ${playerSelection} beats ${computerSelection}!`;
+        return true;
     }
     else if ((playerSelection === 'Rock') && (computerSelection === 'Scissors')) {
-        return `You win! ${playerSelection} beats ${computerSelection}!`;
+        return true;
     }
     else if ((playerSelection === 'Scissors') && (computerSelection === 'Paper')) {
-        return `You win! ${playerSelection} beats ${computerSelection}!`;
+        return true;
     }
     else {
-        return `You lose! ${computerSelection} beats ${playerSelection}.`;
+        return false;
     }
+}
+
+function game() {
+    /*
+    let playerWins = 0;
+    let computerWins = 0;
+    for loop that calls playRound
+        - increments player-/computerWins;
+        - prints round victory/loss message
+        - if playRound = true:
+            playerwin++
+            player round win message
+          if else playROund = false:
+            computerwin++
+            player round lose message
+            else (undefined, tie):
+
+        - prints current score (amount of wins per player)
+
+    while computerwins === playerwins:
+        playRound()
+    who won the game?
+    print playerWins and computerWins
+    if player > computer: player win message
+        else if computer > player: player lose message
+
+        else (equal wins or no wins): tiebreaker:
+    */
 }
