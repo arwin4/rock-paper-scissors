@@ -7,6 +7,8 @@
 
 // playRound(playerSelection, computerSelection);
 // console.log(playRound(playerSelection, computerSelection));
+let playerWins = 0;
+let computerWins = 0;
 
 game();
 
@@ -27,7 +29,13 @@ function getComputerChoice() {
     return possibleAttacks[choice];
 }
 
+function getPlayerChoice() {
+    let playerSelection = prompt('Rock Paper Scissors! Enter your choice:');
+    return capitalize(playerSelection);
+}
+
 function playRound(playerSelection, computerSelection) {
+    
     if (playerSelection === computerSelection) {
         return;
     }
@@ -47,16 +55,10 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    let playerWins = 0;
-    let computerWins = 0;
-
     for (let i = 0; i < 5; i++) {
         const computerSelection = getComputerChoice();
-        console.log(computerSelection);
-
-        let playerSelection = prompt('Rock Paper Scissors! Enter your choice:');
-        playerSelection = capitalize(playerSelection);
-        console.log(playerSelection);
+        console.log('computer picked ' + computerSelection);
+        const playerSelection = getPlayerChoice();
 
         const checkRoundWin = playRound(playerSelection, computerSelection);
 
@@ -74,26 +76,12 @@ function game() {
     }
     console.log('playerwins ' + playerWins);
     console.log('computerwins ' + computerWins);
-
     
-    /*
-    let playerWins = 0;
-    let computerWins = 0;
-    for loop that calls playRound
-        - increments player-/computerWins;
-        - prints round victory/loss message
-        - if playRound = true:
-            playerwin++
-            player round win message
-          if else playROund = false:
-            computerwin++
-            player round lose message
-            else (undefined, tie):
-
-        - prints current score (amount of wins per player)
-
+  /*
     while computerwins === playerwins:
         playRound()
+
+
     who won the game?
     print playerWins and computerWins
     if player > computer: player win message
