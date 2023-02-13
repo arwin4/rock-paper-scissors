@@ -51,7 +51,7 @@ function getPlayerChoice() {
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    return;
+    return; // if the round's a draw, returns undefined.
   }
   // There are only three win conditions, so just check for those.
   else if ((playerSelection === 'Paper') && (computerSelection === 'Rock')) {
@@ -72,7 +72,6 @@ function game() {
   // play hardcoded number of rounds. Ties allowed.
   for (let i = 0; i < 5; i++) {
     const computerSelection = getComputerChoice();
-    // console.log('Debug: computer picked ' + computerSelection);
     const playerSelection = getPlayerChoice();
 
     const roundResult = playRound(playerSelection, computerSelection);
@@ -101,7 +100,6 @@ function breakTie() {
   console.log('We still don\'t have a winner. Let\'s play again.');
 
   const computerSelection = getComputerChoice();
-  // console.log('Debug: computer picked ' + computerSelection);
   const playerSelection = getPlayerChoice();
 
   const roundResult = playRound(playerSelection, computerSelection);
@@ -113,7 +111,7 @@ function breakTie() {
     computerWins++;
     console.log(`${computerSelection} beats ${playerSelection}!`);
   } 
-  // if it's a tie again (roundResult === undefined), stay in while loop
+  // if it's a tie again (roundResult returns undefined), stay in while loop
 }
 
 function showFinalScore(playerWins, computerWins) {
