@@ -1,30 +1,10 @@
 let playerWins = 0;
 let computerWins = 0;
-let breakTieCompleted = false;
+let roundsPlayed = 0;
 
 game();
 
-while (computerWins === playerWins) {
-  breakTie()
-}
-
-// display result
-if (playerWins > computerWins) {
-  if (breakTieCompleted === true) {
-    console.log('You won the tiebreaker! Congrats!');
-  } else {
-    console.log('You won the game! Congrats!');
-  }
-  showFinalScore(playerWins, computerWins);
-
-} else {
-  if (breakTieCompleted === true) {
-    console.log('You lost the tiebreaker. Tough luck...');
-  } else {
-    console.log('You lost the game! That\'s a shame...');
-  }
-  showFinalScore(playerWins, computerWins);
-}
+showFinalScore(playerWins, computerWins, roundsPlayed);
 
 function capitalize(playerSelection) {
   playerSelection = playerSelection.toLowerCase();
@@ -69,52 +49,38 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  // play hardcoded number of rounds. Ties allowed.
-  for (let i = 0; i < 5; i++) {
+  // play rounds until one side has won 5
+  while (playerWins < 5 && computerWins < 5) {
+    roundsPlayed++;
     const computerSelection = getComputerChoice();
     const playerSelection = getPlayerChoice();
 
     const roundResult = playRound(playerSelection, computerSelection);
 
-    showRoundResult(roundResult, i, computerSelection, playerSelection);
+    showRoundResult(roundResult, roundsPlayed, computerSelection, playerSelection);
   }
 }
 
-function showRoundResult(roundResult, i, computerSelection, playerSelection) {
+function showRoundResult(roundResult, roundsPlayed, computerSelection, playerSelection) {
   if (roundResult === true) {
     playerWins++;
-    console.log(`You win round ${i + 1}! ${playerSelection} beats ${computerSelection}!`);
+    console.log(`You win round ${roundsPlayed}! ${playerSelection} beats ${computerSelection}!`);
   }
   else if (roundResult === false) {
     computerWins++;
-    console.log(`You lose round ${i + 1}! ${computerSelection} beats ${playerSelection}!`);
+    console.log(`You lose round ${roundsPlayed}! ${computerSelection} beats ${playerSelection}!`);
   }
   else {
-    console.log(`It's a tie this round (${i + 1})! You both chose ${playerSelection}.`);
+    console.log(`It's a tie this round (${roundsPlayed})! You both chose ${playerSelection}.`);
   }
-}
-
-function breakTie() {
-  // break a tie if score is even *after set amounts of rounds has been played*
-  breakTieCompleted = true;
-  console.log('We still don\'t have a winner. Let\'s play again.');
-
-  const computerSelection = getComputerChoice();
-  const playerSelection = getPlayerChoice();
-
-  const roundResult = playRound(playerSelection, computerSelection);
-
-  if (roundResult === true) {
-    playerWins++;
-    console.log(`${playerSelection} beats ${computerSelection}!`);
-  } else if (roundResult === false) {
-    computerWins++;
-    console.log(`${computerSelection} beats ${playerSelection}!`);
-  } 
-  // if it's a tie again (roundResult returns undefined), stay in while loop
 }
 
 function showFinalScore(playerWins, computerWins) {
+  if (playerWins > computerWins) {
+    console.log('You won the game! Congrats!');
+  } else {
+    console.log('You lost the game! That\'s a shame...');
+  }
   console.log(`== Final score ==
 You: ${playerWins} games won
 Computer: ${computerWins} games won`)
