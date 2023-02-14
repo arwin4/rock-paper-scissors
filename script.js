@@ -2,12 +2,24 @@ let playerWins = 0;
 let computerWins = 0;
 let roundsPlayed = 0;
 
+const body = document.querySelector('body');
+
+const scoreDisplay = document.createElement('div');
+scoreDisplay.textContent = 'Current score:';
+body.appendChild(scoreDisplay);
+
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
-  button.addEventListener('click', () => playRound(button.id));
+  button.addEventListener('click', () => {
+    playRound(button.id);
+    showCurrentScore();
+  });
 });
 
-// showFinalScore(playerWins, computerWins, roundsPlayed);
+function showCurrentScore() {
+  scoreDisplay.textContent = `Current score: [you] ${playerWins} - [computer] ${computerWins}`;
+}
 
 function getComputerChoice() {
   const possibleAttacks = ['rock', 'paper', 'scissors'];
