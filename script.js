@@ -1,24 +1,46 @@
-let playerWins = 0;
-let computerWins = 0;
-let roundsPlayed = 0;
-
-const body = document.querySelector('body');
-
+const buttonArea = document.querySelector('.button-area');
 const scoreDisplay = document.createElement('div');
-scoreDisplay.textContent = 'Current score:';
-body.appendChild(scoreDisplay);
+buttonArea.appendChild(scoreDisplay);
 
+initialize();
+
+function initialize() {
+  playerWins = 0,
+    computerWins = 0,
+    roundsPlayed = 0,
+    draws = 0,
+    gameFinished = false;
+  scoreDisplay.textContent = 'Rounds played: 0. Draws: 0. Current score: [you] 0 - [computer] 0';
+}
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-    playRound(button.id);
-    showCurrentScore();
-  });
+    if (!gameFinished) attack(button.id);
+  })
 });
 
+function attack(playerChoice) {
+  console.log(playerChoice);
+  playRound(playerChoice);
+  showCurrentScore();
+  checkWinner();
+}
+
 function showCurrentScore() {
-  scoreDisplay.textContent = `Current score: [you] ${playerWins} - [computer] ${computerWins}`;
+  scoreDisplay.textContent = `Rounds played: ${roundsPlayed}. Draws: ${draws}.
+  Current score: [you] ${playerWins} - [computer] ${computerWins}.`;
+}
+
+function checkWinner() {
+  if (playerWins === 5) {
+    console.log('you win');
+    gameFinished = true;
+  }
+  else if (computerWins === 5) {
+    console.log('you lose');
+    gameFinished = true;
+  }
 }
 
 function getComputerChoice() {
@@ -33,6 +55,7 @@ function playRound(playerSelection) {
   const computerSelection = getComputerChoice();
 
   if (playerSelection === computerSelection) {
+    draws++;
     return; // if the round's a draw, returns undefined.
   }
   // There are only three win conditions, so just check for those.
@@ -52,29 +75,4 @@ function playRound(playerSelection) {
     computerWins++;
     return;
   }
-}
-
-function showRoundResult(roundResult, roundsPlayed, computerSelection, playerSelection) {
-  if (roundResult === true) {
-    playerWins++;
-    console.log(`You win round ${roundsPlayed}! ${playerSelection} beats ${computerSelection}!`);
-  }
-  else if (roundResult === false) {
-    computerWins++;
-    console.log(`You lose round ${roundsPlayed}! ${computerSelection} beats ${playerSelection}!`);
-  }
-  else {
-    console.log(`It's a tie this round (${roundsPlayed})! You both chose ${playerSelection}.`);
-  }
-}
-
-function showFinalScore(playerWins, computerWins) {
-  if (playerWins > computerWins) {
-    console.log('You won the game! Congrats!');
-  } else {
-    console.log('You lost the game! That\'s a shame...');
-  }
-  console.log(`== Final score ==
-You: ${playerWins} games won
-Computer: ${computerWins} games won`)
 }
