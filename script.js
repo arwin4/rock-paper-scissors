@@ -2,62 +2,43 @@ let playerWins = 0;
 let computerWins = 0;
 let roundsPlayed = 0;
 
-game();
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+  button.addEventListener('click', () => playRound(button.id));
+});
 
-showFinalScore(playerWins, computerWins, roundsPlayed);
-
-function capitalize(playerSelection) {
-  playerSelection = playerSelection.toLowerCase();
-
-  firstLetter = playerSelection.substring(0, 1);
-  restLetters = playerSelection.substring(1);
-
-  firstLetter = firstLetter.toUpperCase();
-
-  return firstLetter + restLetters;
-}
+// showFinalScore(playerWins, computerWins, roundsPlayed);
 
 function getComputerChoice() {
-  const possibleAttacks = ['Rock', 'Paper', 'Scissors'];
+  const possibleAttacks = ['rock', 'paper', 'scissors'];
   // picks one attack at random
   const choice = Math.floor(possibleAttacks.length * Math.random());
   return possibleAttacks[choice];
 }
 
-function getPlayerChoice() {
-  let playerSelection = prompt('Rock Paper Scissors! Enter your choice:');
-  return capitalize(playerSelection);
-}
+function playRound(playerSelection) {
+  roundsPlayed++;
+  const computerSelection = getComputerChoice();
 
-function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
     return; // if the round's a draw, returns undefined.
   }
   // There are only three win conditions, so just check for those.
-  else if ((playerSelection === 'Paper') && (computerSelection === 'Rock')) {
-    return true;
+  else if ((playerSelection === 'paper') && (computerSelection === 'rock')) {
+    playerWins++;
+    return;
   }
-  else if ((playerSelection === 'Rock') && (computerSelection === 'Scissors')) {
-    return true;
+  else if ((playerSelection === 'rock') && (computerSelection === 'scissors')) {
+    playerWins++;
+    return;
   }
-  else if ((playerSelection === 'Scissors') && (computerSelection === 'Paper')) {
-    return true;
+  else if ((playerSelection === 'scissors') && (computerSelection === 'paper')) {
+    playerWins++;
+    return;
   }
   else {
-    return false;
-  }
-}
-
-function game() {
-  // play rounds until one side has won 5
-  while (playerWins < 5 && computerWins < 5) {
-    roundsPlayed++;
-    const computerSelection = getComputerChoice();
-    const playerSelection = getPlayerChoice();
-
-    const roundResult = playRound(playerSelection, computerSelection);
-
-    showRoundResult(roundResult, roundsPlayed, computerSelection, playerSelection);
+    computerWins++;
+    return;
   }
 }
 
