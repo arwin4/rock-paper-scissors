@@ -7,19 +7,20 @@ body {
     display: flex;
     background-color: lightblue;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: 100vh;
+    gap: 100px;
 
     text-align: center;
     flex-wrap: wrap;
 
 }
 
-.buttons * {
+.button-area > button {
     font-size: 1.5em;
 }
 
-.final-score {
-    margin-top: 0px;    
+.button-area > div {
+    margin: 50px 0;
 }
