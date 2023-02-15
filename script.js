@@ -20,8 +20,7 @@ attackButtons.forEach((button) => {
   })
 });
 
-function attack(playerChoice) {
-  console.log(playerChoice);
+function attack(playerChoice) { // sequence of events when player picks an attack
   playRound(playerChoice);
   showCurrentScore();
   showWinner();
