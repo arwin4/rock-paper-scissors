@@ -13,8 +13,8 @@ function initialize() {
   scoreDisplay.textContent = 'Rounds played: 0. Draws: 0. Current score: [you] 0 - [computer] 0';
 }
 
-const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => {
+const attackButtons = document.querySelectorAll('button');
+attackButtons.forEach((button) => {
   button.addEventListener('click', () => {
     if (!gameFinished) attack(button.id);
   })
@@ -24,7 +24,7 @@ function attack(playerChoice) {
   console.log(playerChoice);
   playRound(playerChoice);
   showCurrentScore();
-  checkWinner();
+  showWinner();
 }
 
 function showCurrentScore() {
@@ -32,13 +32,15 @@ function showCurrentScore() {
   Current score: [you] ${playerWins} - [computer] ${computerWins}.`;
 }
 
-function checkWinner() {
+function showWinner() {
   if (playerWins === 5) {
-    console.log('you win');
+    scoreDisplay.textContent = `You win! ${roundsPlayed} rounds were played. 
+    You won ${playerWins} round(s), the computer won ${computerWins}. Draws: ${draws}.`;
     gameFinished = true;
   }
   else if (computerWins === 5) {
-    console.log('you lose');
+    scoreDisplay.textContent = `You lose... ${roundsPlayed} rounds were played. 
+    You won ${playerWins} round(s), the computer won ${computerWins}. Draws: ${draws}.`;
     gameFinished = true;
   }
 }
