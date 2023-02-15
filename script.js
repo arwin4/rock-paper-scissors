@@ -25,6 +25,7 @@ function attack(playerChoice) {
   playRound(playerChoice);
   showCurrentScore();
   showWinner();
+  if (gameFinished) showResetButton();
 }
 
 function showCurrentScore() {
@@ -43,6 +44,16 @@ function showWinner() {
     You won ${playerWins} round(s), the computer won ${computerWins}. Draws: ${draws}.`;
     gameFinished = true;
   }
+}
+
+function showResetButton() {
+  const resetButton = document.createElement('button');
+  resetButton.textContent = 'Play again';
+  resetButton.addEventListener('click', () => {
+    initialize();
+    resetButton.remove();
+  });
+  buttonArea.appendChild(resetButton);
 }
 
 function getComputerChoice() {
